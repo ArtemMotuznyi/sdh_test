@@ -1,10 +1,12 @@
-package com.developerartemmotuznyi.sdhtest.network.model
+package com.developerartemmotuznyi.sdhtest.network.model.response
 
 import kotlinx.serialization.SerialName
 
-class PharmFormDTO(
+class VariantDTO(
     @SerialName("id")
     val id: Long?,
+    @SerialName("pharm_form")
+    val pharmForm: PharmFormDTO?,
     @SerialName("name")
     val name: String?,
     @SerialName("short_name")

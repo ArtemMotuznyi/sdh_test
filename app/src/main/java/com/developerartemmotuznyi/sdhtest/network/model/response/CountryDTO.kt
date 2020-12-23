@@ -1,4 +1,4 @@
-package com.developerartemmotuznyi.sdhtest.network.model
+package com.developerartemmotuznyi.sdhtest.network.model.response
 
 class CountryDTO(
     val id: Long?,

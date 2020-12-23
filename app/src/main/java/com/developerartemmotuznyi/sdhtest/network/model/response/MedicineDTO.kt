@@ -1,18 +1,18 @@
-package com.developerartemmotuznyi.sdhtest.network.model
+package com.developerartemmotuznyi.sdhtest.network.model.response
 
 import kotlinx.serialization.SerialName
 
 class MedicineDTO(
-        @SerialName("id")
+    @SerialName("id")
         val id: Long?,
-        @SerialName("composition")
+    @SerialName("composition")
         val composition: CompositionDTO,
-        @SerialName("packaging")
+    @SerialName("packaging")
         val packaging: PackagingDTO,
-        @SerialName("trade_label")
+    @SerialName("trade_label")
         val tradeLabel: TradeLabelDTO,
-        @SerialName("manufacturer")
+    @SerialName("manufacturer")
         val manufacturer: ManufacturerDTO,
-        @SerialName("code")
+    @SerialName("code")
         val code: String
 )
