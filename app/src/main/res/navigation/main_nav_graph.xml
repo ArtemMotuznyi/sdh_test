@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/main_nav_graph.xml"
+    app:startDestination="@id/medicines">
+
+    <fragment android:id="@+id/medicines">
+
+        <action
+            android:id="@+id/navigate_to_detail"
+            app:destination="@id/medicine_detail" />
+
+    </fragment>
+
+    <fragment android:id="@+id/medicine_detail" />
+
+</navigation>
