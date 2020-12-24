@@ -1,6 +1,6 @@
-package com.developerartemmotuznyi.sdhtest.network.core
+package com.developerartemmotuznyi.sdhtest.domain.model
 
-class PagingResponse<T>(
+class PagingResult<T>(
     val count: Long,
     val next: String,
     val previous: String,
