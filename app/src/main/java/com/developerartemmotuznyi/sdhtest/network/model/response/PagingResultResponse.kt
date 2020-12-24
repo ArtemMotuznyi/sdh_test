@@ -16,7 +16,7 @@ class PagingResultResponse<T>(
 )
 
 fun <T, D> PagingResultResponse<T>?.toDomain(
-    toDomain: (T) -> R
+    toDomain: (T) -> D
 ) = PagingResult(
     this?.count ?: 0,
     this?.next.orEmpty(),
