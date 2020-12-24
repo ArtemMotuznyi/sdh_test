@@ -1,7 +1,7 @@
 package com.developerartemmotuznyi.sdhtest.domain.model
 
 
-class PharmForm(
+data class PharmForm(
     val id: Long,
     val name: String,
     val shortName: String

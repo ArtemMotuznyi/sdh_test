@@ -1,6 +1,6 @@
 package com.developerartemmotuznyi.sdhtest.domain.model
 
-class Packaging(
+data class Packaging(
     val id: Long,
     val composition: Composition,
     val description: String,

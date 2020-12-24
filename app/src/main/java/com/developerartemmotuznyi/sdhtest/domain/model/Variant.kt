@@ -1,6 +1,6 @@
 package com.developerartemmotuznyi.sdhtest.domain.model
 
-class Variant(
+data class Variant(
     val id: Long,
     val pharmForm: PharmForm,
     val name: String,

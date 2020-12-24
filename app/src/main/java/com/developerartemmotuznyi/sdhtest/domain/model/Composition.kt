@@ -1,6 +1,6 @@
 package com.developerartemmotuznyi.sdhtest.domain.model
 
-class Composition(
+data class Composition(
     val id: Long,
     val description: String,
     val atc: List<String>,

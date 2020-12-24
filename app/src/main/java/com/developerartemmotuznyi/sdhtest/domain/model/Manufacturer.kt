@@ -1,6 +1,6 @@
 package com.developerartemmotuznyi.sdhtest.domain.model
 
-class Manufacturer(
+data class Manufacturer(
     val id: Long,
     val name: String,
     val country: Country
