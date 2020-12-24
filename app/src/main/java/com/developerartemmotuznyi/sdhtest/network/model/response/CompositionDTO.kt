@@ -1,20 +1,31 @@
 package com.developerartemmotuznyi.sdhtest.network.model.response
 
+import com.developerartemmotuznyi.sdhtest.domain.model.Composition
 import kotlinx.serialization.SerialName
 
 class CompositionDTO(
     @SerialName("id")
-    val id: Long?,
+    val id: Long? = null,
     @SerialName("description")
-    val description: String?,
+    val description: String? = null,
     @SerialName("atc")
-    val atc: List<String>?,
+    val atc: List<String>? = null,
     @SerialName("inn")
-    val inn: InternationalNonproprietaryNameDTO?,
+    val inn: InternationalNonproprietaryNameDTO? = null,
     @SerialName("pharm_form")
-    val pharmForm: PharmFormDTO,
+    val pharmForm: PharmFormDTO? = null,
     @SerialName("dosage")
-    val dosage: Long,
+    val dosage: Long? = null,
     @SerialName("measure")
-    val measure: MeasureDTO
+    val measure: MeasureDTO? = null
+)
+
+fun CompositionDTO?.toDomain() = Composition(
+    this?.id ?: -1L,
+    this?.description.orEmpty(),
+    this?.atc.orEmpty(),
+    this?.inn.toDomain(),
+    this?.pharmForm.toDomain(),
+    this?.dosage ?: -1L,
+    this?.measure.toDomain()
 )
