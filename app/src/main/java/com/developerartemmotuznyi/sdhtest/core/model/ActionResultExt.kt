@@ -1,26 +1,27 @@
 package com.developerartemmotuznyi.sdhtest.core.model
 
-inline fun <R> ActionResult<R>.getOrDefault(default: () -> R): R {
+inline fun <Data> ActionResult<Data>.handle(
+    onSuccess: (Data) -> Unit,
+    onError: (Throwable) -> Unit
+) {
+    when (this) {
+        is ActionResult.Success -> onSuccess(data)
+        is ActionResult.Error -> onError(this.exception)
+    }
+}
+
+inline fun <Data, Result> ActionResult<Data>.handleWithResult(
+    onSuccess: (Data) -> Result,
+    onError: (Throwable) -> Result
+): Result {
     return when (this) {
-        is ActionResult.Success -> data
-        is ActionResult.Error -> default()
-    }
-}
-
-suspend fun <R> ActionResult<R>.doOnSuccess(action: suspend (R) -> Unit): ActionResult<R> = apply {
-    if (this is ActionResult.Success) {
-        action(data)
-    }
-}
-
-suspend fun <R> ActionResult<R>.doOnError(action: suspend () -> Unit): ActionResult<R> = apply {
-    if (this is ActionResult.Error) {
-        action()
+        is ActionResult.Success -> onSuccess(data)
+        is ActionResult.Error -> onError(this.exception)
     }
 }
 
 
-suspend fun <T, R> ActionResult<T>.transform(transform: suspend (T) -> R): ActionResult<R> =
+suspend fun <Data, Result> ActionResult<Data>.transform(transform: suspend (Data) -> Result): ActionResult<Result> =
     try {
         when (this) {
             is ActionResult.Error -> this
@@ -56,45 +57,4 @@ suspend fun <T, T1, R> ActionResult<T>.join(
     }
 
     return ActionResult.Success(join(mainData, joinWithData))
-}
-
-suspend fun <T, T1, R> ActionResult<T>.join(
-    joinWith: suspend (T) -> ActionResult<T1>,
-    join: suspend (T, T1) -> R
-): ActionResult<R> {
-    val mainData = when (this) {
-        is ActionResult.Success -> data
-        is ActionResult.Error -> return this
-    }
-
-    val joinWithData = when (val joinWithActionResult = joinWith(mainData)) {
-        is ActionResult.Success -> joinWithActionResult.data
-        is ActionResult.Error -> return joinWithActionResult
-    }
-
-    return ActionResult.Success(join(mainData, joinWithData))
-}
-
-suspend fun <T, T1, T2, R> ActionResult<T>.join(
-    joinWith0: suspend (T) -> ActionResult<T1>,
-    joinWith1: suspend (T) -> ActionResult<T2>,
-    join: suspend (T, T1, T2) -> R
-): ActionResult<R> {
-
-    val mainData = when (this) {
-        is ActionResult.Success -> data
-        is ActionResult.Error -> return this
-    }
-
-    val joinWithData0 = when (val joinWithActionResult = joinWith0(mainData)) {
-        is ActionResult.Success -> joinWithActionResult.data
-        is ActionResult.Error -> return joinWithActionResult
-    }
-
-    val joinWithData1 = when (val joinWithActionResult = joinWith1(mainData)) {
-        is ActionResult.Success -> joinWithActionResult.data
-        is ActionResult.Error -> return joinWithActionResult
-    }
-
-    return ActionResult.Success(join(mainData, joinWithData0, joinWithData1))
 }
