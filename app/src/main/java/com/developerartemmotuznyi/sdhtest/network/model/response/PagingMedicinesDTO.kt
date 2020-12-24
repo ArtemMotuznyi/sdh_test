@@ -1,26 +1,27 @@
 package com.developerartemmotuznyi.sdhtest.network.model.response
 
-import com.developerartemmotuznyi.sdhtest.R
+import androidx.annotation.Keep
 import com.developerartemmotuznyi.sdhtest.domain.model.PagingResult
 import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
-class PagingResultResponse<T>(
+@Keep
+@Serializable
+class PagingResultResponse(
     @SerialName("count")
     val count: Long? = null,
     @SerialName("next")
     val next: String? = null,
     @SerialName("previous")
     val previous: String? = null,
-    @SerialName("result")
-    val result: List<T>? = null
+    @SerialName("results")
+    val results: List<MedicineDTO>? = null
 )
 
-fun <T, D> PagingResultResponse<T>?.toDomain(
-    toDomain: (T) -> D
-) = PagingResult(
+fun PagingResultResponse?.toDomain() = PagingResult(
     this?.count ?: 0,
     this?.next.orEmpty(),
     this?.previous.orEmpty(),
-    this?.result?.map(toDomain).orEmpty()
+    this?.results?.map { it.toDomain() }.orEmpty()
 )
 

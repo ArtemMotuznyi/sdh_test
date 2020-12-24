@@ -16,22 +16,20 @@ class DefaultMedicineRepository @Inject constructor(
     private val remoteDataSource: MedicineRemoteDataSource
 ) : MedicineRepository {
 
-    override suspend fun loadMedicine(page: Int): ActionResult<PagingResult<Medicine>> =
+    override suspend fun loadMedicine(page: Int): ActionResult<PagingResult> =
         withContext(Dispatchers.IO) {
             remoteDataSource.loadMedicine(LoadMedicineQueryParams.create(page))
                 .transform { result ->
-                    result.toDomain { data -> data.toDomain() }
+                    result.toDomain()
                 }
         }
 
     override suspend fun searchMedicine(
         page: Int,
         q: String
-    ): ActionResult<PagingResult<Medicine>> = withContext(Dispatchers.IO) {
+    ): ActionResult<PagingResult> = withContext(Dispatchers.IO) {
         remoteDataSource.searchMedicine(SearchMedicineQueryParams.create(page, q))
-            .transform { result ->
-                result.toDomain { data -> data.toDomain() }
-            }
+            .transform { result -> result.toDomain() }
     }
 
     override suspend fun loadMedicineDetail(id: Long): ActionResult<Medicine> =

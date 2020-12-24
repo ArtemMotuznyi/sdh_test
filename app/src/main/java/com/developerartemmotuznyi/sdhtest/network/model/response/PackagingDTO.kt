@@ -2,7 +2,9 @@ package com.developerartemmotuznyi.sdhtest.network.model.response
 
 import com.developerartemmotuznyi.sdhtest.domain.model.Packaging
 import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
+@Serializable
 class PackagingDTO(
     @SerialName("id")
     val id: Long? = null,

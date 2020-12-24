@@ -6,12 +6,12 @@ import com.developerartemmotuznyi.sdhtest.domain.model.PagingResult
 
 interface MedicineRepository {
 
-    suspend fun loadMedicine(page: Int): ActionResult<PagingResult<Medicine>>
+    suspend fun loadMedicine(page: Int): ActionResult<PagingResult>
 
     suspend fun searchMedicine(
         page: Int,
         q: String
-    ): ActionResult<PagingResult<Medicine>>
+    ): ActionResult<PagingResult>
 
     suspend fun loadMedicineDetail(id: Long): ActionResult<Medicine>
 

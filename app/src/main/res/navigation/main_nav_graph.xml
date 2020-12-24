@@ -4,7 +4,9 @@
     android:id="@+id/main_nav_graph.xml"
     app:startDestination="@id/medicines">
 
-    <fragment android:id="@+id/medicines">
+    <fragment
+        android:id="@+id/medicines"
+        android:name="com.developerartemmotuznyi.sdhtest.presentation.medicine.MedicineAllFragment">
 
         <action
             android:id="@+id/navigate_to_detail"

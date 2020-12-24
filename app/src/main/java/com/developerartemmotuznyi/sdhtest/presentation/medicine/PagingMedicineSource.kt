@@ -24,11 +24,11 @@ class PagingMedicineSource(
     private fun handleError(throwable: Throwable): LoadResult<Int, Medicine> =
         LoadResult.Error(throwable)
 
-    private fun handleSuccess(pagingResult: PagingResult<Medicine>): LoadResult<Int, Medicine> =
+    private fun handleSuccess(pagingResult: PagingResult): LoadResult<Int, Medicine> =
         LoadResult.Page(
             pagingResult.result,
-            pagingResult.previousPageIndex,
-            pagingResult.nextPageIndex
+            if (pagingResult.previousPageIndex == -1) null else pagingResult.previousPageIndex,
+            if (pagingResult.nextPageIndex == -1) null else pagingResult.nextPageIndex
         )
 
     private fun getNextKey(key: Int?): Int = if (key != null && key > 0) key else 1

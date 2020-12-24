@@ -6,6 +6,6 @@ data class Composition(
     val atc: List<String>,
     val inn: InternationalNonproprietaryName,
     val pharmForm: PharmForm,
-    val dosage: Long,
+    val dosage: Double,
     val measure: Measure
 )

@@ -8,9 +8,9 @@ import com.developerartemmotuznyi.sdhtest.network.model.response.PagingResultRes
 
 interface MedicineRemoteDataSource {
 
-    suspend fun loadMedicine(params: LoadMedicineQueryParams): ActionResult<PagingResultResponse<MedicineDTO>>
+    suspend fun loadMedicine(params: LoadMedicineQueryParams): ActionResult<PagingResultResponse>
 
-    suspend fun searchMedicine(params: SearchMedicineQueryParams): ActionResult<PagingResultResponse<MedicineDTO>>
+    suspend fun searchMedicine(params: SearchMedicineQueryParams): ActionResult<PagingResultResponse>
 
     suspend fun loadMedicineDetail(id: Long): ActionResult<MedicineDTO>
 
