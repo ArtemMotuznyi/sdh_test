@@ -10,6 +10,7 @@ abstract class ViewModelFragment<VB : ViewBinding, VM : ViewModel> : ViewBinding
 
     abstract val viewModel: VM
 
+    @CallSuper
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initSubscription()

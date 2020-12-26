@@ -1,3 +1,5 @@
 <resources>
-    <string name="app_name">SDHTest</string>
+    <string name="app_name">Ліки</string>
+    <string name="all_medicines_tab_title">Всі</string>
+    <string name="favorite_medicines_tab_title">Обрані</string>
 </resources>

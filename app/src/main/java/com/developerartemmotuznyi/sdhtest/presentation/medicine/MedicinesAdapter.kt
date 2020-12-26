@@ -6,16 +6,16 @@ import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.developerartemmotuznyi.sdhtest.databinding.ItemMedicineBinding
-import com.developerartemmotuznyi.sdhtest.domain.model.Medicine
+import com.developerartemmotuznyi.sdhtest.local.model.MedicineEntity
 
-class MedicinesAdapter : PagingDataAdapter<Medicine, MedicineViewHolder>(differ) {
+class MedicinesAdapter : PagingDataAdapter<MedicineEntity, MedicineViewHolder>(differ) {
 
     companion object {
-        val differ = object : DiffUtil.ItemCallback<Medicine>() {
-            override fun areItemsTheSame(oldItem: Medicine, newItem: Medicine): Boolean =
+        val differ = object : DiffUtil.ItemCallback<MedicineEntity>() {
+            override fun areItemsTheSame(oldItem: MedicineEntity, newItem: MedicineEntity): Boolean =
                 oldItem.id == newItem.id
 
-            override fun areContentsTheSame(oldItem: Medicine, newItem: Medicine): Boolean =
+            override fun areContentsTheSame(oldItem: MedicineEntity, newItem: MedicineEntity): Boolean =
                 oldItem == newItem
         }
     }
@@ -33,9 +33,9 @@ class MedicineViewHolder(
     private val binding: ItemMedicineBinding
 ) : RecyclerView.ViewHolder(binding.root) {
 
-    fun bind(medicine: Medicine) {
-        binding.title.text = medicine.tradeLabel.name
-        binding.subTitle.text = medicine.manufacturer.name
+    fun bind(medicineEntity: MedicineEntity) {
+        binding.title.text = medicineEntity.tradeLabel.name
+        binding.subTitle.text = medicineEntity.manufacturerEntity.name
     }
 
 }

@@ -6,7 +6,7 @@
 
     <fragment
         android:id="@+id/medicines"
-        android:name="com.developerartemmotuznyi.sdhtest.presentation.medicine.MedicineAllFragment">
+        android:name="com.developerartemmotuznyi.sdhtest.presentation.medicine.MedicinesContainerFragment">
 
         <action
             android:id="@+id/navigate_to_detail"
