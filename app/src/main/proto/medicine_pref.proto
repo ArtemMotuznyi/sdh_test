@@ -1,0 +1,74 @@
+syntax = "proto3";
+
+option java_package = "com.developerartemmotuznyi.sdhtest";
+option java_multiple_files = true;
+
+message MedicinePreferences{
+    sint64 id = 1;
+    CompositionPreferences composition = 2;
+    PackagingPreferences packaging = 3;
+    TradeLabelPreferences tradeLabel = 4;
+    ManufacturerPreferences manufacturer = 5;
+    string code = 6;
+}
+
+message CompositionPreferences{
+    sint64 id = 1;
+    string description = 2;
+    repeated string atc = 3;
+    InternationalNonproprietaryNamePreferences inn = 4;
+    PharmFromPreferences pharmFrom = 5;
+    double dossage = 6;
+    MeasurePreferences measure = 7;
+}
+
+message InternationalNonproprietaryNamePreferences{
+    sint64 id = 1;
+    string name = 2;
+}
+
+message PharmFromPreferences{
+    sint64 id = 1;
+    string name = 2;
+    string shortName = 3;
+}
+
+message MeasurePreferences{
+    string name = 1;
+    string iso = 2;
+}
+
+message PackagingPreferences{
+    sint64 id = 1;
+    CompositionPreferences composition = 2;
+    string description = 3;
+    bool inBulk = 4;
+    double minimumQuantity = 5;
+    double packageQuantity = 6;
+    VariantPreferences variant = 7;
+}
+
+message VariantPreferences{
+    sint64 id = 1;
+    PharmFromPreferences pharmFrom = 2;
+    string name = 3;
+    string shortName = 4;
+}
+
+message TradeLabelPreferences {
+    sint64 id = 1;
+    string name = 2;
+}
+
+message ManufacturerPreferences {
+    sint64 id = 1;
+    string name = 2;
+    CountryPreferences country = 3;
+}
+
+message CountryPreferences {
+    sint64 id = 1;
+    string name = 2;
+    string iso2 = 3;
+    string iso3 = 4;
+}
