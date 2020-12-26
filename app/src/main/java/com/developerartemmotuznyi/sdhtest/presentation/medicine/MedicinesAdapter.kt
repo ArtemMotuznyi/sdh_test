@@ -33,9 +33,9 @@ class MedicineViewHolder(
     private val binding: ItemMedicineBinding
 ) : RecyclerView.ViewHolder(binding.root) {
 
-    fun bind(medicineEntity: Medicine) {
-        binding.title.text = medicineEntity.tradeLabel.name
-        binding.subTitle.text = medicineEntity.manufacturer.name
+    fun bind(Medicine: Medicine) {
+        binding.title.text = Medicine.tradeLabel.name
+        binding.subTitle.text = Medicine.manufacturer.name
     }
 
 }
