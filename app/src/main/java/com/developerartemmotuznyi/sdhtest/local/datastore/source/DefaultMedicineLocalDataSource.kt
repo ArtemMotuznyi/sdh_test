@@ -59,6 +59,9 @@ class DefaultMedicineLocalDataSource @Inject constructor(
 		ActionResult.Error(Exception("Error: Load Medicine", e))
 	}
 
-	override suspend fun observeMedicines(): Flow<ActionResult<List<MedicinePreferences>>> =
-			dataStore.data.map { ActionResult.Success(it.medicinesList) }
+	override suspend fun observeMedicines(q: String): Flow<ActionResult<List<MedicinePreferences>>> =
+			dataStore.data.map {
+				val result = if (q.isBlank()) it.medicinesList else it.medicinesList.filter { item -> item.equals(q) }
+				ActionResult.Success(result)
+			}
 }

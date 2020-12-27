@@ -3,6 +3,7 @@ package com.developerartemmotuznyi.sdhtest.presentation.medicine
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.CreateMethod
 import by.kirich1409.viewbindingdelegate.viewBinding
@@ -38,7 +39,7 @@ abstract class MedicinePageFragment : ViewModelFragment<FragmentMedicinesBinding
 	}
 
 	private fun navigateToDetail(id: Long) {
-
+		findNavController().navigate(MedicinesContainerFragmentDirections.navigateToDetail(id))
 	}
 
 	private fun updateMedicineState(medicine: Medicine) {

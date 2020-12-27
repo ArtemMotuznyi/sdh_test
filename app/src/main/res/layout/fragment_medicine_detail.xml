@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbar"
+        android:layout_width="0dp"
+        android:layout_height="?actionBarSize"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/name"
+
+        style="@style/TextAppearance.MaterialComponents.Headline5"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar"
+        tools:text="ЛЕДІСЕПТ-ФАРМЕКС" />
+
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/manufacturer"
+        style="@style/TextAppearance.MaterialComponents.Subtitle1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/name"
+        tools:text="Товариство з обмеженою відповідальністю ФАРМЕКС ГРУП " />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/composition_title"
+        style="@style/TextAppearance.MaterialComponents.Headline6"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/detail_medicine_composition_title"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/manufacturer" />
+
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/composition"
+        style="@style/TextAppearance.MaterialComponents.Body1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/composition_title"
+        tools:text="1 супозиторій містить 16 мг розчину хлоргексидину біглюконату 20 % у перерахунку на хлоргексидину біглюконат" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/composition_inn_title"
+        style="@style/TextAppearance.MaterialComponents.Headline6"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/detail_medicine_composition_inn_title"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/composition" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/composition_inn"
+        style="@style/TextAppearance.MaterialComponents.Body1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/composition_inn_title"
+        tools:text="Chlorhexidine" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/phorm_title"
+        style="@style/TextAppearance.MaterialComponents.Headline6"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/detail_medicine_phorm_title"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/composition_inn" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/phorm"
+        style="@style/TextAppearance.MaterialComponents.Body1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/phorm_title"
+        tools:text="Супозиторії" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/packaging_title"
+        style="@style/TextAppearance.MaterialComponents.Headline6"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/detail_medicine_packaging_title"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/phorm" />
+
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/packaging"
+        style="@style/TextAppearance.MaterialComponents.Body1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/packaging_title"
+        tools:text="Упаковка" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

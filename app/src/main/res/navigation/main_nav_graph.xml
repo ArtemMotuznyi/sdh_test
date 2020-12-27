@@ -14,6 +14,14 @@
 
     </fragment>
 
-    <fragment android:id="@+id/medicine_detail" />
+    <fragment
+        android:id="@+id/medicine_detail"
+        android:name="com.developerartemmotuznyi.sdhtest.presentation.detail.MedicineDetailFragment">
+
+        <argument
+            android:name="medicine_id"
+            app:argType="long" />
+
+    </fragment>
 
 </navigation>

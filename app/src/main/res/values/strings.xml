@@ -2,4 +2,9 @@
     <string name="app_name">Ліки</string>
     <string name="all_medicines_tab_title">Всі</string>
     <string name="favorite_medicines_tab_title">Обрані</string>
+    <string name="detail_medicine_composition_title">Склад</string>
+    <string name="detail_medicine_composition_inn_title">Діюча речовина</string>
+    <string name="detail_medicine_phorm_title">Лікарська форма:</string>
+    <string name="detail_medicine_packaging_title">Упаковка</string>
+    <string name="detail_medicine_manufactorer_with_count">%s %s</string>
 </resources>
