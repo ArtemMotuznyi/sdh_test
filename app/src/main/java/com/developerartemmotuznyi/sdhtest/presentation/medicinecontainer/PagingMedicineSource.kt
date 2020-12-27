@@ -1,6 +1,7 @@
 package com.developerartemmotuznyi.sdhtest.presentation.medicinecontainer
 
 import androidx.paging.PagingSource
+import androidx.paging.PagingState
 import com.developerartemmotuznyi.sdhtest.core.model.handleWithResult
 import com.developerartemmotuznyi.sdhtest.domain.model.Medicine
 import com.developerartemmotuznyi.sdhtest.domain.model.PagingResult
@@ -10,6 +11,14 @@ class PagingMedicineSource(
         private val query: String,
         private val loadMedicineUseCase: LoadMedicineUseCase
 ) : PagingSource<Int, Medicine>() {
+
+    override val keyReuseSupported: Boolean
+        get() = true
+
+    override fun getRefreshKey(state: PagingState<Int, Medicine>): Int? {
+        val page = state.closestPageToPosition(state.anchorPosition ?: 0)
+        return page?.nextKey?.minus(1) ?: page?.prevKey?.plus(1)
+    }
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Medicine> = try {
         val nextPage = getNextKey(params.key)
@@ -25,8 +34,8 @@ class PagingMedicineSource(
     private fun handleSuccess(pagingResult: PagingResult): LoadResult<Int, Medicine> =
             LoadResult.Page(
                     pagingResult.result,
-                    if (pagingResult.previousPageIndex == -1) null else pagingResult.previousPageIndex,
-                    if (pagingResult.nextPageIndex == -1) null else pagingResult.nextPageIndex
+                    if (pagingResult.previous == -1) null else pagingResult.previous,
+                    if (pagingResult.next == -1) null else pagingResult.next
             )
 
     private fun getNextKey(key: Int?): Int = if (key != null && key > 0) key else 1

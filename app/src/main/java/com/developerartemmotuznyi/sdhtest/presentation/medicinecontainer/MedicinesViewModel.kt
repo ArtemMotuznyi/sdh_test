@@ -14,9 +14,9 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 class MedicinesViewModel @ViewModelInject constructor(
-    private val loadMedicineUseCase: LoadMedicineUseCase,
-    private val loadFavoriteMedicineUseCase: FavoriteMedicineUseCase,
-    private val updateMedicineStateUseCase: UpdateMedicineStateUseCase
+        private val loadMedicineUseCase: LoadMedicineUseCase,
+        private val loadFavoriteMedicineUseCase: FavoriteMedicineUseCase,
+        private val updateMedicineStateUseCase: UpdateMedicineStateUseCase
 ) : ViewModel() {
 
     private val _searchQuery = MutableLiveData("")
