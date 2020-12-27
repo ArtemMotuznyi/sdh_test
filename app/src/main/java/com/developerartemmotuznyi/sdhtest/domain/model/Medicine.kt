@@ -6,5 +6,6 @@ data class Medicine(
     val packaging: Packaging,
     val tradeLabel: TradeLabel,
     val manufacturer: Manufacturer,
-    val code: String
+    val code: String,
+    val isSaved: Boolean
 )

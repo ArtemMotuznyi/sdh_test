@@ -3,6 +3,10 @@ syntax = "proto3";
 option java_package = "com.developerartemmotuznyi.sdhtest";
 option java_multiple_files = true;
 
+message MedicinesPreferences{
+    repeated MedicinePreferences medicines = 1;
+}
+
 message MedicinePreferences{
     sint64 id = 1;
     CompositionPreferences composition = 2;
@@ -17,7 +21,7 @@ message CompositionPreferences{
     string description = 2;
     repeated string atc = 3;
     InternationalNonproprietaryNamePreferences inn = 4;
-    PharmFromPreferences pharmFrom = 5;
+    PharmFormPreferences pharmForm = 5;
     double dossage = 6;
     MeasurePreferences measure = 7;
 }
@@ -27,7 +31,7 @@ message InternationalNonproprietaryNamePreferences{
     string name = 2;
 }
 
-message PharmFromPreferences{
+message PharmFormPreferences{
     sint64 id = 1;
     string name = 2;
     string shortName = 3;
@@ -50,7 +54,7 @@ message PackagingPreferences{
 
 message VariantPreferences{
     sint64 id = 1;
-    PharmFromPreferences pharmFrom = 2;
+    PharmFormPreferences pharmForm = 2;
     string name = 3;
     string shortName = 4;
 }

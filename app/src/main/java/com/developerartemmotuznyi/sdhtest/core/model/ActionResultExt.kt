@@ -22,28 +22,36 @@ inline fun <Data, Result> ActionResult<Data>.handleWithResult(
 
 
 suspend fun <Data, Result> ActionResult<Data>.transform(transform: suspend (Data) -> Result): ActionResult<Result> =
-    try {
-        when (this) {
-            is ActionResult.Error -> this
-            is ActionResult.Success -> ActionResult.Success(transform(this.data))
+        try {
+            when (this) {
+                is ActionResult.Error -> this
+                is ActionResult.Success -> ActionResult.Success(transform(this.data))
+            }
+        } catch (e: Exception) {
+            ActionResult.Error(e)
         }
-    } catch (e: Exception) {
-        ActionResult.Error(e)
-    }
 
-suspend fun <T, R> ActionResult<T>.flatMap(transform: suspend (T) -> ActionResult<R>): ActionResult<R> =
-    try {
-        when (this) {
-            is ActionResult.Error -> this
-            is ActionResult.Success -> transform(this.data)
-        }
-    } catch (e: Exception) {
-        ActionResult.Error(e)
+suspend fun <Data> ActionResult<Data>.doOnError(doOnError: suspend (Throwable) -> ActionResult<Data>): ActionResult<Data> = try {
+    when (this) {
+        is ActionResult.Error -> doOnError(this.exception)
+        is ActionResult.Success -> this
     }
+} catch (e: Exception) {
+    ActionResult.Error(e)
+}
+
+suspend fun <T, R> ActionResult<T>.flatMap(transform: suspend (T) -> ActionResult<R>): ActionResult<R> = try {
+    when (this) {
+        is ActionResult.Error -> this
+        is ActionResult.Success -> transform(this.data)
+    }
+} catch (e: Exception) {
+    ActionResult.Error(e)
+}
 
 
 suspend fun <T, T1, R> ActionResult<T>.join(
-    joinWith: ActionResult<T1>,
+    joinWith: suspend (T) -> ActionResult<T1>,
     join: suspend (T, T1) -> R
 ): ActionResult<R> {
     val mainData = when (this) {
@@ -51,9 +59,9 @@ suspend fun <T, T1, R> ActionResult<T>.join(
         is ActionResult.Error -> return this
     }
 
-    val joinWithData = when (joinWith) {
-        is ActionResult.Success -> joinWith.data
-        is ActionResult.Error -> return joinWith
+    val joinWithData = when (val result = joinWith(mainData)) {
+        is ActionResult.Success -> result.data
+        is ActionResult.Error -> return result
     }
 
     return ActionResult.Success(join(mainData, joinWithData))

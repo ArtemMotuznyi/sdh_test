@@ -2,13 +2,18 @@ package com.developerartemmotuznyi.sdhtest.presentation.medicine
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.paging.AsyncPagingDataDiffer
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListUpdateCallback
 import androidx.recyclerview.widget.RecyclerView
 import com.developerartemmotuznyi.sdhtest.databinding.ItemMedicineBinding
 import com.developerartemmotuznyi.sdhtest.domain.model.Medicine
 
-class MedicinesAdapter : PagingDataAdapter<Medicine, MedicineViewHolder>(differ) {
+class MedicinesAdapter(
+        private val onItemClick: (Long) -> Unit,
+        private val onFavoriteClick: (Medicine) -> Unit,
+) : PagingDataAdapter<Medicine, MedicineViewHolder>(differ) {
 
     companion object {
         val differ = object : DiffUtil.ItemCallback<Medicine>() {
@@ -24,18 +29,31 @@ class MedicinesAdapter : PagingDataAdapter<Medicine, MedicineViewHolder>(differ)
         getItem(position)?.let(holder::bind)
     }
 
+    override fun onBindViewHolder(holder: MedicineViewHolder, position: Int, payloads: MutableList<Any>) {
+        super.onBindViewHolder(holder, position, payloads)
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = MedicineViewHolder(
-        ItemMedicineBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            ItemMedicineBinding.inflate(LayoutInflater.from(parent.context), parent, false),
+            onItemClick,
+            onFavoriteClick
     )
 }
 
 class MedicineViewHolder(
-    private val binding: ItemMedicineBinding
+        private val binding: ItemMedicineBinding,
+        private val onItemClick: (Long) -> Unit,
+        private val onFavoriteClick: (Medicine) -> Unit
 ) : RecyclerView.ViewHolder(binding.root) {
 
-    fun bind(Medicine: Medicine) {
-        binding.title.text = Medicine.tradeLabel.name
-        binding.subTitle.text = Medicine.manufacturer.name
+    fun bind(medicine: Medicine) {
+        binding.root.setOnClickListener { onItemClick(medicine.id) }
+        binding.favorite.setOnClickListener { onFavoriteClick(medicine) }
+
+        binding.title.text = medicine.tradeLabel.name
+        binding.subTitle.text = medicine.manufacturer.name
+
+        binding.favorite.isSelected = medicine.isSaved
     }
 
 }

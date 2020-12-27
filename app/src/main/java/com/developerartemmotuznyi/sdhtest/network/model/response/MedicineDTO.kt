@@ -27,5 +27,6 @@ fun MedicineDTO?.toDomain() = Medicine(
     this?.packaging.toDomain(),
     this?.tradeLabel.toDomain(),
     this?.manufacturer.toDomain(),
-    this?.code.orEmpty()
+    this?.code.orEmpty(),
+    false
 )

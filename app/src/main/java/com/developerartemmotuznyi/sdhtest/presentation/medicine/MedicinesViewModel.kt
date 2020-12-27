@@ -5,13 +5,17 @@ import androidx.lifecycle.*
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.cachedIn
+import com.developerartemmotuznyi.sdhtest.core.model.handle
+import com.developerartemmotuznyi.sdhtest.domain.model.Medicine
 import com.developerartemmotuznyi.sdhtest.domain.usecase.LoadMedicineUseCase
 import com.developerartemmotuznyi.sdhtest.domain.usecase.SearchMedicineUseCase
-import com.developerartemmotuznyi.sdhtest.presentation.medicine.PagingMedicineSource
+import com.developerartemmotuznyi.sdhtest.domain.usecase.UpdateMedicineStateUseCase
+import kotlinx.coroutines.launch
 
 class MedicinesViewModel @ViewModelInject constructor(
-    private val loadMedicineUseCase: LoadMedicineUseCase,
-    private val searchMedicineUseCase: SearchMedicineUseCase,
+        private val loadMedicineUseCase: LoadMedicineUseCase,
+        private val searchMedicineUseCase: SearchMedicineUseCase,
+        private val updateMedicineStateUseCase: UpdateMedicineStateUseCase
 ) : ViewModel() {
 
     private val _searchQuery = MutableLiveData("")
@@ -23,6 +27,9 @@ class MedicinesViewModel @ViewModelInject constructor(
         /*loadFavorites(it)*/
         loadMedicines(it)
     }
+
+    private val _refresh = MutableLiveData<Boolean>()
+    val refresh: LiveData<Boolean> = _refresh
 
     private fun loadFavorites(it: String?) {
 
@@ -42,5 +49,15 @@ class MedicinesViewModel @ViewModelInject constructor(
             }
     ).flow.cachedIn(viewModelScope).asLiveData()
 
+    fun updateMedicineState(medicine: Medicine) {
+        viewModelScope.launch {
+            updateMedicineStateUseCase(medicine).handle({
+                _refresh.postValue(true)
+                _refresh.postValue(false)
+            }, {
+                _refresh.postValue(false)
+            })
+        }
+    }
 
 }

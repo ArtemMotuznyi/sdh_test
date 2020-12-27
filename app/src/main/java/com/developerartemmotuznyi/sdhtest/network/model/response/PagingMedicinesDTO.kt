@@ -19,9 +19,9 @@ class PagingResultResponse(
 )
 
 fun PagingResultResponse?.toDomain() = PagingResult(
-    this?.count ?: 0,
-    this?.next.orEmpty(),
-    this?.previous.orEmpty(),
-    this?.results?.map { it.toDomain() }.orEmpty()
+        this?.count ?: 0,
+        this?.next.orEmpty(),
+        this?.previous.orEmpty(),
+        this?.results?.map { it.toDomain() }.orEmpty()
 )
 

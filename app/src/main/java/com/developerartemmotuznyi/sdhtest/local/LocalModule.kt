@@ -3,8 +3,8 @@ package com.developerartemmotuznyi.sdhtest.local
 import android.content.Context
 import androidx.datastore.core.DataStore
 import androidx.datastore.createDataStore
-import com.developerartemmotuznyi.sdhtest.MedicinePreferences
-import com.developerartemmotuznyi.sdhtest.local.datastore.serializer.MedicinePreferencesSerializer
+import com.developerartemmotuznyi.sdhtest.MedicinesPreferences
+import com.developerartemmotuznyi.sdhtest.local.datastore.serializer.MedicinesPreferencesSerializer
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -18,9 +18,9 @@ object LocalModule {
 
 	@Singleton
 	@Provides
-	fun provideProtoDataStore(@ApplicationContext applicationContext: Context): DataStore<MedicinePreferences> =
+	fun provideProtoDataStore(@ApplicationContext applicationContext: Context): DataStore<MedicinesPreferences> =
 			applicationContext.createDataStore(
 					fileName = "profile_prefs.pb",
-					serializer = MedicinePreferencesSerializer
+					serializer = MedicinesPreferencesSerializer
 			)
 }
