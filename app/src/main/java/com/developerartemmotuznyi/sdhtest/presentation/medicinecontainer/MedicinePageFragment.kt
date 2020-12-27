@@ -1,4 +1,4 @@
-package com.developerartemmotuznyi.sdhtest.presentation.medicine
+package com.developerartemmotuznyi.sdhtest.presentation.medicinecontainer
 
 import android.os.Bundle
 import android.view.View
@@ -14,14 +14,8 @@ import com.developerartemmotuznyi.sdhtest.presentation.base.ViewModelFragment
 abstract class MedicinePageFragment : ViewModelFragment<FragmentMedicinesBinding, MedicinesViewModel>() {
 
 	override val viewModel: MedicinesViewModel by viewModels({ parentFragment ?: this })
-
 	override val binding: FragmentMedicinesBinding by viewBinding(CreateMethod.INFLATE)
-
-	protected val adapter = MedicinesAdapter(
-			::navigateToDetail,
-			::updateMedicineState
-	)
-
+	protected val adapter = MedicinesAdapter(::navigateToDetail, ::updateMedicineState)
 
 	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 		super.onViewCreated(view, savedInstanceState)

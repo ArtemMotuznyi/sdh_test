@@ -7,6 +7,6 @@ class LoadMedicineUseCase @Inject constructor(
     private val repository: MedicineRepository
 ) {
 
-    suspend operator fun invoke(page: Int) = repository.loadMedicine(page)
+    suspend operator fun invoke(page: Int, q: String = "") = repository.loadMedicines(page, q)
 
 }

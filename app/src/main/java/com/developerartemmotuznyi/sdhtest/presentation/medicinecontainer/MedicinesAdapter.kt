@@ -1,11 +1,9 @@
-package com.developerartemmotuznyi.sdhtest.presentation.medicine
+package com.developerartemmotuznyi.sdhtest.presentation.medicinecontainer
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.paging.AsyncPagingDataDiffer
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListUpdateCallback
 import androidx.recyclerview.widget.RecyclerView
 import com.developerartemmotuznyi.sdhtest.databinding.ItemMedicineBinding
 import com.developerartemmotuznyi.sdhtest.domain.model.Medicine

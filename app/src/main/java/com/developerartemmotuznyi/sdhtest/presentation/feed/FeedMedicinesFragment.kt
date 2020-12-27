@@ -1,12 +1,13 @@
-package com.developerartemmotuznyi.sdhtest.presentation.medicine
+package com.developerartemmotuznyi.sdhtest.presentation.feed
 
+import com.developerartemmotuznyi.sdhtest.presentation.medicinecontainer.MedicinePageFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class MedicineAllFragment : MedicinePageFragment() {
+class FeedMedicinesFragment : MedicinePageFragment() {
 
     companion object {
-        fun newInstance() = MedicineAllFragment()
+        fun newInstance() = FeedMedicinesFragment()
     }
 
     override fun initSubscription() {

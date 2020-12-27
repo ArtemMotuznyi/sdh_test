@@ -1,16 +1,14 @@
-package com.developerartemmotuznyi.sdhtest.presentation.medicine
+package com.developerartemmotuznyi.sdhtest.presentation.medicinecontainer
 
 import androidx.paging.PagingSource
 import com.developerartemmotuznyi.sdhtest.core.model.handleWithResult
 import com.developerartemmotuznyi.sdhtest.domain.model.Medicine
 import com.developerartemmotuznyi.sdhtest.domain.model.PagingResult
 import com.developerartemmotuznyi.sdhtest.domain.usecase.LoadMedicineUseCase
-import com.developerartemmotuznyi.sdhtest.domain.usecase.SearchMedicineUseCase
 
 class PagingMedicineSource(
         private val query: String,
-        private val loadMedicineUseCase: LoadMedicineUseCase,
-        private val searchMedicineUseCase: SearchMedicineUseCase
+        private val loadMedicineUseCase: LoadMedicineUseCase
 ) : PagingSource<Int, Medicine>() {
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Medicine> = try {
@@ -36,7 +34,7 @@ class PagingMedicineSource(
     private suspend fun loadData(page: Int) = if (query.isBlank()) {
         loadMedicineUseCase(page)
     } else {
-        searchMedicineUseCase(page, query)
+        loadMedicineUseCase(page, query)
     }
 
 }

@@ -14,6 +14,8 @@ import com.developerartemmotuznyi.sdhtest.network.model.request.SearchMedicineQu
 import com.developerartemmotuznyi.sdhtest.network.model.response.toDomain
 import com.developerartemmotuznyi.sdhtest.network.source.MedicineRemoteDataSource
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
@@ -22,29 +24,30 @@ class DefaultMedicineRepository @Inject constructor(
         private val localDataSource: MedicineLocalDataSource
 ) : MedicineRepository {
 
-    override suspend fun loadMedicine(page: Int): ActionResult<PagingResult> =
-        withContext(Dispatchers.IO) {
-            remoteDataSource.loadMedicine(LoadMedicineQueryParams.create(page))
-                    .transform { it.toDomain() }
-                    .join({ remote ->
-                        localDataSource.loadMedicinesById(remote.result.map { item -> item.id }).transform {
-                            it.map { item -> item.toDomain() }
-                        }
-                    }, { remote, local ->
-                        val resultList = remote.result.map {
-                            local.find { localItem -> localItem.id == it.id } ?: it
-                        }
-                        remote.copy(result = resultList)
-                    })
+    override suspend fun loadMedicines(page: Int, q: String): ActionResult<PagingResult> =
+            withContext(Dispatchers.IO) {
+                loadMedicinesByQuery(page, q)
+                        .transform { it.toDomain() }
+                        .join(::loadFavoritesByRemoteResult, ::mergeRemoteAndLocal)
+            }
 
+    private fun mergeRemoteAndLocal(remote: PagingResult, local: List<Medicine>): PagingResult {
+        val remoteResult = remote.result
+
+        val resultList = remoteResult.map {
+            local.find { localItem -> localItem.id == it.id } ?: it
         }
+        return remote.copy(result = resultList)
+    }
 
-    override suspend fun searchMedicine(
-            page: Int,
-            q: String
-    ): ActionResult<PagingResult> = withContext(Dispatchers.IO) {
+    private suspend fun loadFavoritesByRemoteResult(remote: PagingResult) =
+            localDataSource.loadMedicinesById(remote.result.map { it.id }).transform { it.map { item -> item.toDomain() } }
+
+
+    private suspend fun loadMedicinesByQuery(page: Int, q: String) = if (q.isBlank()) {
+        remoteDataSource.loadMedicine(LoadMedicineQueryParams.create(page))
+    } else {
         remoteDataSource.searchMedicine(SearchMedicineQueryParams.create(page, q))
-                .transform { result -> result.toDomain() }
     }
 
     override suspend fun loadMedicineDetail(id: Long): ActionResult<Medicine> =
@@ -62,6 +65,12 @@ class DefaultMedicineRepository @Inject constructor(
 
     override suspend fun updateMedicineState(medicine: Medicine): ActionResult<Unit> = withContext(Dispatchers.IO) {
         if (medicine.isSaved) removeMedicine(medicine) else saveMedicine(medicine)
+    }
+
+    override suspend fun loadFavorite(q: String): Flow<ActionResult<List<Medicine>>> = withContext(Dispatchers.IO) {
+        localDataSource.observeMedicines(q).map { result ->
+            result.transform { favorites -> favorites.map { it.toDomain() } }
+        }
     }
 
     private suspend fun saveMedicine(medicine: Medicine): ActionResult<Unit> = localDataSource.saveMedicine(medicine)

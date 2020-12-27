@@ -61,7 +61,10 @@ class DefaultMedicineLocalDataSource @Inject constructor(
 
 	override suspend fun observeMedicines(q: String): Flow<ActionResult<List<MedicinePreferences>>> =
 			dataStore.data.map {
-				val result = if (q.isBlank()) it.medicinesList else it.medicinesList.filter { item -> item.equals(q) }
+				val list = it.toBuilder().medicinesList
+
+				val result =
+					if (q.isBlank()) list else list.filter { item -> item.tradeLabel.name.contains(q, true) }
 				ActionResult.Success(result)
 			}
 }
