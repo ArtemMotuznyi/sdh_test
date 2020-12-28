@@ -1,4 +1,4 @@
-package com.developerartemmotuznyi.sdhtest.presentation.medicinecontainer
+package com.developerartemmotuznyi.sdhtest.presentation.container
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState

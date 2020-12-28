@@ -7,4 +7,5 @@
     <string name="detail_medicine_phorm_title">Лікарська форма:</string>
     <string name="detail_medicine_packaging_title">Упаковка</string>
     <string name="detail_medicine_manufactorer_with_count">%s %s</string>
+    <string name="no_connect">Відсутнє підключення до Інтернету</string>
 </resources>

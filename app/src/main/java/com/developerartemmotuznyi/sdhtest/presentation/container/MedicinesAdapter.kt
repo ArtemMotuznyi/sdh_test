@@ -1,4 +1,4 @@
-package com.developerartemmotuznyi.sdhtest.presentation.medicinecontainer
+package com.developerartemmotuznyi.sdhtest.presentation.container
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -25,10 +25,6 @@ class MedicinesAdapter(
 
     override fun onBindViewHolder(holder: MedicineViewHolder, position: Int) {
         getItem(position)?.let(holder::bind)
-    }
-
-    override fun onBindViewHolder(holder: MedicineViewHolder, position: Int, payloads: MutableList<Any>) {
-        super.onBindViewHolder(holder, position, payloads)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = MedicineViewHolder(

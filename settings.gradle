@@ -1,2 +1,3 @@
+include ':InternetConnectivityManager'
 include ':app'
 rootProject.name = "SDHTest"

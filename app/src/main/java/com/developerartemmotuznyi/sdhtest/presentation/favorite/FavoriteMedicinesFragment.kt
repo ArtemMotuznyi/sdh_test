@@ -1,7 +1,7 @@
 package com.developerartemmotuznyi.sdhtest.presentation.favorite
 
 import androidx.paging.PagingData
-import com.developerartemmotuznyi.sdhtest.presentation.medicinecontainer.MedicinePageFragment
+import com.developerartemmotuznyi.sdhtest.presentation.container.MedicinePageFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
